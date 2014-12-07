@@ -5,7 +5,7 @@ use Hyperion\Scribe\Model\OAuthConfig;
 
 class GoogleApi extends DefaultApi20
 {
-    const AUTHORIZATION_URL = "https://accounts.google.com/o/oauth2/auth?access_type=offline&scope=%s";
+    const AUTHORIZATION_URL = "https://accounts.google.com/o/oauth2/auth?access_type=offline&response_type=code&scope=%s";
 
     public function getAccessTokenEndpoint()
     {
