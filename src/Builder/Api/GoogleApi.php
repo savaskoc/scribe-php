@@ -1,35 +1,19 @@
 <?php
 namespace Hyperion\Scribe\Builder\Api;
 
-use Hyperion\Scribe\Model\Token;
-use Hyperion\Scribe\Model\Verb;
+use Hyperion\Scribe\Model\OAuthConfig;
 
-class GoogleApi extends DefaultApi10a
+class GoogleApi extends DefaultApi20
 {
-    const AUTHORIZATION_URL = "https://www.google.com/accounts/OAuthAuthorizeToken?oauth_token=%s";
+    const AUTHORIZATION_URL = "https://accounts.google.com/o/oauth2/auth?access_type=offline&scope=%s";
 
     public function getAccessTokenEndpoint()
     {
-        return "https://www.google.com/accounts/OAuthGetAccessToken";
+        return "https://accounts.google.com/o/oauth2/token";
     }
 
-    public function getRequestTokenEndpoint()
+    public function getAuthorizationUrl(OAuthConfig $config)
     {
-        return "https://www.google.com/accounts/OAuthGetRequestToken";
-    }
-
-    public function getAccessTokenVerb()
-    {
-        return Verb::GET;
-    }
-
-    public function getRequestTokenVerb()
-    {
-        return Verb::GET;
-    }
-
-    public function getAuthorizationUrl(Token $requestToken)
-    {
-        return sprintf(self::AUTHORIZATION_URL, $requestToken->getToken());
+        return sprintf(self::AUTHORIZATION_URL, $config->getScope());
     }
 }
